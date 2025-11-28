@@ -1,10 +1,49 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import profileImage from '@/assets/profile.jpg';
 import { heroData } from '@/data/hero';
 
 const Hero = () => {
+  // Typewriter state (infinite loop: type -> pause -> delete -> pause)
+  const [typed, setTyped] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [cursorOn, setCursorOn] = useState(true);
+
+  useEffect(() => {
+    const text = heroData.title;
+    const typingSpeed = 60; // ms per char while typing
+    const deletingSpeed = 40; // ms per char while deleting
+    const pauseAtEnd = 1200; // pause when fully typed
+    const pauseAtStart = 500; // pause before re-typing
+
+    let timeoutId: number | undefined;
+
+    if (!isDeleting && typed.length < text.length) {
+      timeoutId = window.setTimeout(() => {
+        setTyped(text.slice(0, typed.length + 1));
+      }, typingSpeed);
+    } else if (!isDeleting && typed.length === text.length) {
+      timeoutId = window.setTimeout(() => setIsDeleting(true), pauseAtEnd);
+    } else if (isDeleting && typed.length > 0) {
+      timeoutId = window.setTimeout(() => {
+        setTyped(text.slice(0, typed.length - 1));
+      }, deletingSpeed);
+    } else if (isDeleting && typed.length === 0) {
+      timeoutId = window.setTimeout(() => setIsDeleting(false), pauseAtStart);
+    }
+
+    return () => {
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
+  }, [typed, isDeleting]);
+
+  // Optional cursor blink using state (in addition to motion fallback)
+  useEffect(() => {
+    const blink = setInterval(() => setCursorOn((v) => !v), 600);
+    return () => clearInterval(blink);
+  }, []);
   const iconMap = {
     email: Mail,
     linkedin: Linkedin,
@@ -52,7 +91,15 @@ const Hero = () => {
               <span className="text-gradient">{heroData.name}</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-              {heroData.title}
+              <span className="inline-block align-middle">{typed}</span>
+              {/* Bold blinking cursor */}
+              <motion.span
+                aria-hidden
+                className="ml-1 inline-block align-middle h-[1em] border-r-4 border-primary"
+                animate={{ opacity: [1, 0.15, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity }}
+                style={{ opacity: cursorOn ? 1 : 0.2 }}
+              />
             </p>
             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />

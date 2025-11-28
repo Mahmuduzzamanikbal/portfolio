@@ -44,7 +44,7 @@ const About = () => {
           >
             <div className="prose prose-invert max-w-none">
               {aboutData.paragraphs.map((paragraph, index) => (
-                <p key={index} className="text-lg text-foreground/90 leading-relaxed">
+                <p key={index} className="text-lg text-foreground/90 leading-relaxed text-justify">
                   {paragraph}
                 </p>
               ))}
