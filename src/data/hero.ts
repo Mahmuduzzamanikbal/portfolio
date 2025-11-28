@@ -16,7 +16,7 @@ export const heroData: HeroData = {
   title: 'Computer Science Student & AI Researcher',
   status: 'Available for Research Collaboration',
   description: 'Passionate about collaborative research in Data Science, Artificial Intelligence, Deep Learning, and Software Engineering. Dedicated to advancing knowledge through innovative computational approaches and interdisciplinary research.',
-  profileImage: '/src/assets/profile.png',
+  profileImage: '/src/assets/profile.jpg',
   socialLinks: [
     { type: 'email', href: 'mailto:mahmuduzzaman@example.com', label: 'Email' },
     { type: 'linkedin', href: 'https://linkedin.com', label: 'LinkedIn' },

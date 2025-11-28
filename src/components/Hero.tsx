@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import profileImage from '@/assets/profile.png';
+import profileImage from '@/assets/profile.jpg';
 import { heroData } from '@/data/hero';
 
 const Hero = () => {
