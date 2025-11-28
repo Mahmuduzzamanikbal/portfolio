@@ -2,49 +2,27 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Eye, Image, Network, Cpu, Database, Code2 } from 'lucide-react';
+import { skillsData } from '@/data/skills';
 
 const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const skills = [
-    {
-      icon: Eye,
-      title: 'Computer Vision',
-      description: 'Advanced image processing and visual recognition systems',
-      gradient: 'from-purple-500 to-pink-500',
-    },
-    {
-      icon: Image,
-      title: 'Image Classification',
-      description: 'Deep learning models for accurate image categorization',
-      gradient: 'from-blue-500 to-cyan-500',
-    },
-    {
-      icon: Network,
-      title: 'Pattern Recognition',
-      description: 'Complex pattern detection and feature extraction',
-      gradient: 'from-green-500 to-emerald-500',
-    },
-    {
-      icon: Cpu,
-      title: 'OCR Technologies',
-      description: 'Optical character recognition for document processing',
-      gradient: 'from-orange-500 to-red-500',
-    },
-    {
-      icon: Database,
-      title: 'Data Science',
-      description: 'Statistical analysis and data-driven insights',
-      gradient: 'from-indigo-500 to-purple-500',
-    },
-    {
-      icon: Code2,
-      title: 'Deep Learning',
-      description: 'Neural networks and AI model development',
-      gradient: 'from-pink-500 to-rose-500',
-    },
-  ];
+  const iconMap = {
+    Eye,
+    Image,
+    Network,
+    Cpu,
+    Database,
+    Code2,
+  };
+
+  const skills = skillsData.skills.map(skill => ({
+    icon: iconMap[skill.icon as keyof typeof iconMap],
+    title: skill.title,
+    description: skill.description,
+    gradient: skill.gradient,
+  }));
 
   return (
     <section id="skills" className="relative py-24 px-4" ref={ref}>
@@ -105,7 +83,7 @@ const Skills = () => {
               Research Tools & <span className="text-gradient">Technologies</span>
             </h3>
             <div className="flex flex-wrap gap-3 justify-center">
-              {['Python', 'TensorFlow', 'PyTorch', 'OpenCV', 'Keras', 'Scikit-learn', 'NumPy', 'Pandas'].map((tool) => (
+              {skillsData.tools.map((tool) => (
                 <span
                   key={tool}
                   className="px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-sm font-medium text-foreground hover:bg-primary/20 transition-colors"

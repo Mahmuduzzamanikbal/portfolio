@@ -2,28 +2,23 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { GraduationCap, Brain, Lightbulb } from 'lucide-react';
+import { aboutData } from '@/data/about';
 
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const highlights = [
-    {
-      icon: GraduationCap,
-      title: 'Education',
-      description: 'BSc in Computer Science and Engineering, Varendra University',
-    },
-    {
-      icon: Brain,
-      title: 'Research Focus',
-      description: 'AI, Deep Learning, Data Science & Software Engineering',
-    },
-    {
-      icon: Lightbulb,
-      title: 'Philosophy',
-      description: 'Collaborative research and continuous learning',
-    },
-  ];
+  const iconMap = {
+    GraduationCap,
+    Brain,
+    Lightbulb,
+  };
+
+  const highlights = aboutData.highlights.map(highlight => ({
+    icon: iconMap[highlight.icon as keyof typeof iconMap],
+    title: highlight.title,
+    description: highlight.description,
+  }));
 
   return (
     <section id="about" className="relative py-24 px-4" ref={ref}>
@@ -48,21 +43,11 @@ const About = () => {
             className="space-y-6"
           >
             <div className="prose prose-invert max-w-none">
-              <p className="text-lg text-foreground/90 leading-relaxed">
-                I am a passionate Computer Science student at <span className="text-primary font-semibold">Varendra University</span>, 
-                deeply engaged in cutting-edge research across multiple domains of artificial intelligence and computational sciences.
-              </p>
-              <p className="text-lg text-foreground/90 leading-relaxed">
-                My research interests span <span className="text-accent font-semibold">Data Science</span>, 
-                <span className="text-accent font-semibold"> Artificial Intelligence</span>, 
-                <span className="text-accent font-semibold"> Deep Learning</span>, and 
-                <span className="text-accent font-semibold"> Software Engineering</span>. I believe in the power of 
-                collaborative research and continuous learning to push the boundaries of what's possible in technology.
-              </p>
-              <p className="text-lg text-foreground/90 leading-relaxed">
-                Through my work in OCR, image classification, pattern recognition, and computer vision, I strive to 
-                contribute meaningful solutions to real-world problems while advancing the field of artificial intelligence.
-              </p>
+              {aboutData.paragraphs.map((paragraph, index) => (
+                <p key={index} className="text-lg text-foreground/90 leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </motion.div>
 

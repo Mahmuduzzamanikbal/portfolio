@@ -2,34 +2,25 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Beaker, GitBranch, Microscope } from 'lucide-react';
+import { projects as projectsData } from '@/data/projects';
 
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const projects = [
-    {
-      icon: Microscope,
-      title: 'Multilingual OCR System',
-      description: 'Developing an advanced optical character recognition system capable of processing documents in multiple languages with high accuracy.',
-      status: 'In Progress',
-      tags: ['OCR', 'Deep Learning', 'NLP'],
-    },
-    {
-      icon: Beaker,
-      title: 'Medical Image Analysis',
-      description: 'Research initiative exploring pattern recognition techniques for automated diagnosis support in medical imaging applications.',
-      status: 'Research Phase',
-      tags: ['Computer Vision', 'Healthcare', 'AI'],
-    },
-    {
-      icon: GitBranch,
-      title: 'Smart City Vision Framework',
-      description: 'Investigating computer vision applications for urban infrastructure optimization and intelligent traffic management systems.',
-      status: 'Ongoing',
-      tags: ['Computer Vision', 'IoT', 'Smart Cities'],
-    },
-  ];
+  const iconMap = {
+    Microscope,
+    Beaker,
+    GitBranch,
+  };
+
+  const projects = projectsData.map(project => ({
+    icon: iconMap[project.icon as keyof typeof iconMap],
+    title: project.title,
+    description: project.description,
+    status: project.status,
+    tags: project.tags,
+  }));
 
   return (
     <section id="projects" className="relative py-24 px-4 bg-gradient-secondary" ref={ref}>

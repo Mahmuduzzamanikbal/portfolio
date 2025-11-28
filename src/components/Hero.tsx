@@ -2,14 +2,21 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import profileImage from '@/assets/profile.png';
+import { heroData } from '@/data/hero';
 
 const Hero = () => {
-  const socialLinks = [
-    { icon: Mail, href: 'mailto:mahmuduzzaman@example.com', label: 'Email' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: FileText, href: 'https://scholar.google.com', label: 'Google Scholar' },
-  ];
+  const iconMap = {
+    email: Mail,
+    linkedin: Linkedin,
+    github: Github,
+    scholar: FileText,
+  };
+
+  const socialLinks = heroData.socialLinks.map(link => ({
+    icon: iconMap[link.type],
+    href: link.href,
+    label: link.label,
+  }));
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
@@ -42,14 +49,14 @@ const Hero = () => {
             className="space-y-4"
           >
             <h1 className="text-5xl md:text-7xl font-display font-bold">
-              <span className="text-gradient">Md. Mahmuduzzaman Ikbal</span>
+              <span className="text-gradient">{heroData.name}</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-              Computer Science Student & AI Researcher
+              {heroData.title}
             </p>
             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />
-              <span>Available for Research Collaboration</span>
+              <span>{heroData.status}</span>
             </div>
           </motion.div>
 
@@ -59,9 +66,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="max-w-2xl text-lg text-foreground/80 leading-relaxed"
           >
-            Passionate about collaborative research in Data Science, Artificial Intelligence, 
-            Deep Learning, and Software Engineering. Dedicated to advancing knowledge through 
-            innovative computational approaches and interdisciplinary research.
+            {heroData.description}
           </motion.p>
 
           <motion.div
