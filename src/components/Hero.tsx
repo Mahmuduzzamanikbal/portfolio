@@ -67,7 +67,7 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl glow">
+            <div className="w-48 h-48 md:w-64 md:h-64 mt-10 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl glow">
               <img
                 src={profileImage}
                 alt="Md. Mahmuduzzaman Ikbal"
@@ -120,19 +120,19 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap gap-4 justify-center"
+            className="grid grid-cols-4 gap-3 justify-items-center md:flex md:flex-wrap md:gap-4 md:justify-center"
           >
             {socialLinks.map((link, index) => (
               <Button
                 key={index}
                 variant="outline"
                 size="lg"
-                className="group border-primary/30 hover:border-primary hover:bg-primary/10"
+                className="group border-primary/30 hover:border-primary hover:bg-primary/10 w-10 h-10 p-0 md:w-auto md:h-auto md:px-4 md:py-2"
                 asChild
               >
-                <a href={link.href} target="_blank" rel="noopener noreferrer">
-                  <link.icon className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                  {link.label}
+                <a href={link.href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                  <link.icon className="h-5 w-5 md:mr-2 group-hover:scale-110 transition-transform" />
+                  <span className="hidden md:inline">{link.label}</span>
                 </a>
               </Button>
             ))}

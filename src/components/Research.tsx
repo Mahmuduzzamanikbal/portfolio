@@ -67,12 +67,13 @@ const Research = () => {
             className="flex justify-center"
           >
             <Tabs value={filter} onValueChange={(value) => setFilter(value as typeof filter)} className="w-full max-w-2xl">
-              <TabsList className="grid w-full grid-cols-4 h-auto p-1">
+              {/* Wrap into two lines on mobile, four columns on md+ */}
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto p-1 gap-2">
                 {publicationTypes.map((type) => (
                   <TabsTrigger 
                     key={type} 
                     value={type}
-                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground text-sm py-2"
+                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground text-sm py-2 px-3"
                   >
                     {type}
                   </TabsTrigger>
